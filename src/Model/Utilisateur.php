@@ -29,7 +29,7 @@ class Utilisateur implements \JsonSerializable{
     private $role;
 
 
-    public function SqlGet(\PDO $bdd,$Id_Utilisateur){
+    public function SqlGetOneUtilisateur(\PDO $bdd,$Id_Utilisateur){
         $requete = $bdd->prepare('SELECT * FROM Utilisateur where ID_Utilisateur = :$Id_Utilisateur');
         $requete->execute([
             'idUtilisateur' => $Id_Utilisateur
@@ -37,15 +37,31 @@ class Utilisateur implements \JsonSerializable{
 
         $datas =  $requete->fetch();
 
-        $user = new User();
-        $user->setIdUti($datas['id_uti']);
-        $user->setUtiMail($datas['uti_mail']);
-        $user->setUtiNom($datas['uti_nom']);
-        $user->setUtiPrenom($datas['uti_prenom']);
-        $user->setUtiPassword($datas['uti_password']);
-        $user->setUtiRole($datas['uti_role']);
+        $utilisateur = new Utilisateur();
+        $utilisateur->setIdUtilisateur($datas['Id_Utilisateur']);
+        $utilisateur->setUNom($datas['u_nom']);
+        $utilisateur->setUPrenom($datas['u_prenom']);
+        $utilisateur->setSexe($datas['sexe']);
+        $utilisateur->setVille($datas['ville']);
+        $utilisateur->setTelephone($datas['telephone']);
+        $utilisateur->setAge($datas['age']);
+        $utilisateur->setPassion($datas['passion']);
+        $utilisateur->setPrefhum($datas['prefhum']);
+        $utilisateur->setStatut($datas['statut']);
+        $utilisateur->setParent($datas['parent']);
+        $utilisateur->setTaille($datas['taille']);
+        $utilisateur->setCorpulence($datas['corpulence']);
+        $utilisateur->setCheuveux($datas['cheuveux']);
+        $utilisateur->setNationalite($datas['nationalite']);
+        $utilisateur->setReligion($datas['religion']);
+        $utilisateur->setFumeur($datas['fumeur']);
+        $utilisateur->setDescription($datas['description']);
+        $utilisateur->setEmail($datas['email']);
+        $utilisateur->setPassword($datas['password']);
+        $utilisateur->setRole($datas['role']);
 
-        return $user;
+
+        return $utilisateur;
     }
 
 
@@ -54,6 +70,7 @@ class Utilisateur implements \JsonSerializable{
     public function jsonSerialize()
     {
         return [
+            '$Id_Utilisateur' => $this->getIdUtilisateur(),
             'u_nom' => $this->getUNom(),
             'u_prenom' => $this->getUPrenom(),
             'sexe' => $this->getSexe(),
@@ -82,6 +99,23 @@ class Utilisateur implements \JsonSerializable{
     /**
      * @return mixed
      */
+    public function getIdUtilisateur()
+    {
+        return $this->Id_Utilisateur;
+    }
+
+    /**
+     * @param mixed $Id_Utilisateur
+     */
+    public function setIdUtilisateur($Id_Utilisateur)
+    {
+        $this->Id_Utilisateur = $Id_Utilisateur;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getUNom()
     {
         return $this->u_nom;
@@ -93,6 +127,7 @@ class Utilisateur implements \JsonSerializable{
     public function setUNom($u_nom)
     {
         $this->u_nom = $u_nom;
+        return $this;
     }
 
     /**
@@ -109,6 +144,7 @@ class Utilisateur implements \JsonSerializable{
     public function setUPrenom($u_prenom)
     {
         $this->u_prenom = $u_prenom;
+        return $this;
     }
 
     /**
@@ -123,8 +159,10 @@ class Utilisateur implements \JsonSerializable{
      * @param mixed $sexe
      */
     public function setSexe($sexe)
+
     {
         $this->sexe = $sexe;
+        return $this;
     }
 
     /**
@@ -141,6 +179,7 @@ class Utilisateur implements \JsonSerializable{
     public function setVille($ville)
     {
         $this->ville = $ville;
+        return $this;
     }
 
     /**
@@ -157,6 +196,7 @@ class Utilisateur implements \JsonSerializable{
     public function setTelephone($telephone)
     {
         $this->telephone = $telephone;
+        return $this;
     }
 
     /**
@@ -173,6 +213,7 @@ class Utilisateur implements \JsonSerializable{
     public function setAge($age)
     {
         $this->age = $age;
+        return $this;
     }
 
     /**
@@ -189,6 +230,7 @@ class Utilisateur implements \JsonSerializable{
     public function setPassion($passion)
     {
         $this->passion = $passion;
+        return $this;
     }
 
     /**
@@ -205,6 +247,7 @@ class Utilisateur implements \JsonSerializable{
     public function setPrefhum($prefhum)
     {
         $this->prefhum = $prefhum;
+        return $this;
     }
 
     /**
@@ -221,6 +264,7 @@ class Utilisateur implements \JsonSerializable{
     public function setStatut($statut)
     {
         $this->statut = $statut;
+        return $this;
     }
 
     /**
@@ -237,6 +281,7 @@ class Utilisateur implements \JsonSerializable{
     public function setParent($parent)
     {
         $this->parent = $parent;
+        return $this;
     }
 
     /**
@@ -253,6 +298,7 @@ class Utilisateur implements \JsonSerializable{
     public function setTaille($taille)
     {
         $this->taille = $taille;
+        return $this;
     }
 
     /**
@@ -269,6 +315,7 @@ class Utilisateur implements \JsonSerializable{
     public function setCorpulence($corpulence)
     {
         $this->corpulence = $corpulence;
+        return $this;
     }
 
     /**
@@ -285,6 +332,7 @@ class Utilisateur implements \JsonSerializable{
     public function setCheuveux($cheuveux)
     {
         $this->cheuveux = $cheuveux;
+        return $this;
     }
 
     /**
@@ -301,6 +349,7 @@ class Utilisateur implements \JsonSerializable{
     public function setNationalite($nationalite)
     {
         $this->nationalite = $nationalite;
+        return $this;
     }
 
     /**
@@ -317,6 +366,7 @@ class Utilisateur implements \JsonSerializable{
     public function setReligion($religion)
     {
         $this->religion = $religion;
+        return $this;
     }
 
     /**
@@ -333,6 +383,7 @@ class Utilisateur implements \JsonSerializable{
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
     /**
@@ -349,6 +400,7 @@ class Utilisateur implements \JsonSerializable{
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
@@ -365,6 +417,7 @@ class Utilisateur implements \JsonSerializable{
     public function setFumeur($fumeur)
     {
         $this->fumeur = $fumeur;
+        return $this;
     }
 
     /**
@@ -381,6 +434,7 @@ class Utilisateur implements \JsonSerializable{
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     /**
@@ -397,6 +451,7 @@ class Utilisateur implements \JsonSerializable{
     public function setRole($role)
     {
         $this->role = $role;
+        return $this;
     }
 
 }
