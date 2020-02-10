@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+<?php
+
+
+namespace src\Controller;
+
+use src\Model\Bdd;
+use src\Model\Utilisateur;
+
+class UtilisateurController
+{
+
+=======
 <?php
 
 
@@ -20,4 +33,5 @@ class UtilisateurController
         ]);
     }
 
+>>>>>>> 805a7a10d594772e4bd9e30df9ef2a7f564186e2
 }
