@@ -1,183 +1,196 @@
 /*==============================================================*/
 /* Nom de SGBD :  MySQL 5.0                                     */
-/* Date de création :  31/01/2020 14:25:02                      */
+/* Date de création :  10/02/2020 08:54:38                      */
 /*==============================================================*/
 
 
-drop table if exists ADMIN;
+drop table if exists Animal;
 
-drop table if exists ANIMAL;
+drop table if exists Citation;
 
-drop table if exists CITATION;
+drop table if exists Liker;
 
-drop table if exists COUPDC;
+drop table if exists Matche;
 
-drop table if exists MESSAGE;
+drop table if exists Matcher;
 
-drop table if exists NOTIFICATION;
+drop table if exists Message;
 
-drop table if exists RACE;
+drop table if exists Notification;
 
-drop table if exists SIGNALEMENT;
+drop table if exists Race;
 
-drop table if exists UTILISATEUR;
+drop table if exists Signalement;
+
+drop table if exists User;
 
 /*==============================================================*/
-/* Table : ADMIN                                                */
+/* Table : Animal                                               */
 /*==============================================================*/
-create table ADMIN
+create table Animal
 (
-    ID_ADMIN             int not null auto_increment,
-    EMAIL_ADMIN          varchar(100),
-    MDP_ADMIN            varchar(100),
-    PSEUDO_ADMIN         varchar(10),
-    primary key (ID_ADMIN)
+    ID_Animal            int not null auto_increment,
+    ID_Race               int not null,
+    ID_User                int not null,
+    entente                bool,
+    caractere             varchar(100),
+    a_prenom            varchar(100),
+    a_age                  date,
+    primary key (ID_Animal)
 );
 
 /*==============================================================*/
-/* Table : ANIMAL                                               */
+/* Table : Citation                                             */
 /*==============================================================*/
-create table ANIMAL
+create table Citation
 (
-    ID_ANIMAL            int not null auto_increment,
-    ID_RACE              int not null,
-    ID_UTILISATEUR       int not null,
-    A_ENTENTE            bool,
-    A_DESCRIPTION        varchar(100),
-    A_PRENOM             varchar(100),
-    A_AGE                date,
-    primary key (ID_ANIMAL)
+    ID_Citation          int not null auto_increment,
+    Phrase              varchar(100),
+    primary key (ID_Citation)
 );
 
 /*==============================================================*/
-/* Table : CITATION                                             */
+/* Table : Like                                               */
 /*==============================================================*/
-create table CITATION
+create table Liker
 (
-    ID_CITATION          int not null auto_increment,
-    PHRASE               varchar(100),
-    primary key (ID_CITATION)
+    ID_Liker              int not null auto_increment,
+    ID_User       int not null,
+    l_date               date,
+    primary key (ID_Liker)
 );
 
 /*==============================================================*/
-/* Table : COUPDC                                               */
+/* Table : Matche                                               */
 /*==============================================================*/
-create table COUPDC
+create table Matche
 (
-    ID_COUPDC            int not null auto_increment,
-    ID_UTILISATEUR       int not null,
-    UTILI                varchar(25),
-    primary key (ID_COUPDC)
+    ID_Matche            int not null auto_increment,
+    ma_date              date,
+    primary key (ID_Matche)
 );
 
 /*==============================================================*/
-/* Table : MESSAGE                                              */
+/* Table : Matcher                                              */
 /*==============================================================*/
-create table MESSAGE
+create table Matcher
 (
-    ID_MESSAGE           int not null auto_increment,
-    ID_UTILISATEUR       int not null,
-    UTI_ID_UTILISATEUR   int not null,
-    ME_DATE              datetime,
-    ME_CONTENUE          varchar(250),
-    primary key (ID_MESSAGE)
+    ID_Matche            int not null,
+    ID_User                 int not null,
+    primary key (ID_Matche, ID_User)
 );
 
 /*==============================================================*/
-/* Table : NOTIFICATION                                         */
+/* Table : Message                                              */
 /*==============================================================*/
-create table NOTIFICATION
+create table Message
 (
-    ID_NOTIFICATION      int not null auto_increment,
-    ID_UTILISATEUR       int not null,
-    NOT_MESSAGE          varchar(100),
-    NOT_DATE             datetime,
-    primary key (ID_NOTIFICATION)
+    ID_Message           int not null auto_increment,
+    ID_User       int not null,
+    UTI_ID_User   int not null,
+    me_date              datetime,
+    me_contenue          varchar(100),
+    primary key (ID_Message)
 );
 
 /*==============================================================*/
-/* Table : RACE                                                 */
+/* Table : Notification                                         */
 /*==============================================================*/
-create table RACE
+create table Notification
 (
-    ID_RACE              int not null auto_increment,
-    R_NOM                varchar(100),
-    primary key (ID_RACE)
+    ID_Notification      int not null auto_increment,
+    ID_User       int not null,
+    not_message          varchar(100),
+    not_date             datetime,
+    primary key (ID_Notification)
 );
 
 /*==============================================================*/
-/* Table : SIGNALEMENT                                          */
+/* Table : Race    		*/
 /*==============================================================*/
-create table SIGNALEMENT
+create table Race
 (
-    ID_SIGNALEMENT       int not null auto_increment,
-    ID_ADMIN             int,
-    ID_UTILISATEUR       int not null,
-    UTI_ID_UTILISATEUR   int not null,
-    TYPE                 ENUM ('Usurpation','Harcelement','Injure','Comportement douteu','Incitation a la haine'),
-    COMMENTAIRE          varchar(100),
-    SIGNALEUR            varchar(100),
-    SIGNALER             varchar(100),
+    ID_Race              int not null auto_increment,
+    r_nom                varchar(100),
+    primary key (ID_Race)
+);
+
+/*==============================================================*/
+/* Table : Signalement			*/
+/*==============================================================*/
+create table Signalement
+(
+    ID_Signalement    int not null auto_increment,
+    ID_User                 int not null,
+    UTI_ID_User          int not null,
+    type         	ENUM ('Usurpation','Harcelement','Injure','Comportement douteu','Incitation a la haine'),
+    commentaire       varchar(100),
+    signaleur             varchar(100),
+    signaler               varchar(100),
     S_DATE               datetime,
-    primary key (ID_SIGNALEMENT)
+    primary key (ID_Signalement)
 );
 
 /*==============================================================*/
-/* Table : UTILISATEUR                                          */
+/* Table : User                                          */
 /*==============================================================*/
-create table UTILISATEUR
+create table User
 (
-    ID_UTILISATEUR       int not null auto_increment,
-    ID_SIGNALEMENT       int,
-    U_NOM                varchar(100),
-    U_PRENOM             varchar(100),
-    U_SEXE               ENUM ('Homme','Femme','Autre'),
-    U_VILLE              varchar(100),
-    U_TELEPHONE          char(10),
-    U_AGE                varchar(100),
-    U_PASSION            varchar(100),
-    U_PREFHUMAIN         ENUM ('Homme','Femme','Les deux'),
-    U_STATUT             ENUM ('Marié.e','Veuf.ve','Célibataire'),
-    U_PARENT             ENUM ('1 Enfant','2 Enfants','Non'),
-    U_TAILLE             decimal,
-    U_CORPULANCE         ENUM ('Maigre','Normal','Fat AF'),
-    U_CHEVEUX            ENUM ('Long','Mi long','Court','Long','Bouclés'),
-    U_NATIONALITE        varchar(100),
-    U_RELIGION           ENUM ('Islam','Christianisme','Bouddhisme','Hindouisme','Judaïsme'),
-    U_FUMEUR             ENUM ('Oui','Occasionnellement','Non'),
-    U_DESCRIPTION        varchar(255),
-    U_EMAIL              varchar(100),
-    U_MDP                varchar(100),
-    primary key (ID_UTILISATEUR)
+    ID_User       int not null auto_increment,
+    ID_Signalement       int,
+    u_nom               varchar(100),
+    u_prenom             varchar(100),
+    sexe               ENUM ('Homme','Femme','Autre'),
+    ville             varchar(100),
+    telephone          char(10),
+    age                varchar(100),
+    passion            varchar(100),
+    prefhum         ENUM ('Homme','Femme','Les deux'),
+    satut           ENUM ('Marié.e','Veuf.ve','Célibataire'),
+    parent          ENUM ('1 Enfant','2 Enfants','Non'),
+    taille                   decimal,
+    corpulence         ENUM ('Maigre','Normal','Fat AF'),
+    cheuveux            ENUM ('Long','Mi long','Court','Long','Bouclés'),
+    nationalite         varchar(100),
+    religion              ENUM ('Islam','Christianisme','Bouddhisme','Hindouisme','Judaïsme'),
+    fumeur              ENUM ('Oui','Occasionnellement','Non'),
+    description        varchar(255),
+    email                 varchar(100),
+    password           varchar(100),
+    role               int,
+        primary key (ID_User)
 );
 
-alter table ANIMAL add constraint FK_POSSEDER foreign key (ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Animal add constraint FK_POSSEDER foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table ANIMAL add constraint FK_QUALIFIER foreign key (ID_RACE)
-    references RACE (ID_RACE) on delete restrict on update restrict;
+alter table Animal add constraint FK_QUALIFIER foreign key (ID_Race)
+    references Race (ID_Race) on delete restrict on update restrict;
 
-alter table COUPDC add constraint FK_MATCHER foreign key (ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table "Liker" add constraint FK_AVOIR foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table MESSAGE add constraint FK_ENVOYER foreign key (UTI_ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Matcher add constraint FK_MATCHER foreign key (ID_Matche)
+    references Matche (ID_Matche) on delete restrict on update restrict;
 
-alter table MESSAGE add constraint FK_RECEVOIR foreign key (ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Matcher add constraint FK_MATCHER2 foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table NOTIFICATION add constraint FK_NOTIFIER foreign key (ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Message add constraint FK_ENVOYER foreign key (UTI_ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table SIGNALEMENT add constraint FK_CONSULTER foreign key (ID_ADMIN)
-    references ADMIN (ID_ADMIN) on delete restrict on update restrict;
+alter table Message add constraint FK_RECEVOIR foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table SIGNALEMENT add constraint FK_DENONCER foreign key (ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Notification add constraint FK_NOTIFIER foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table SIGNALEMENT add constraint FK_SIGNALER foreign key (UTI_ID_UTILISATEUR)
-    references UTILISATEUR (ID_UTILISATEUR) on delete restrict on update restrict;
+alter table Signalement add constraint FK_DENONCER foreign key (ID_User)
+    references User (ID_User) on delete restrict on update restrict;
 
-alter table UTILISATEUR add constraint FK_DENONCER2 foreign key (ID_SIGNALEMENT)
-    references SIGNALEMENT (ID_SIGNALEMENT) on delete restrict on update restrict;
+alter table Signalement add constraint FK_SIGNALER foreign key (UTI_ID_User)
+    references User (ID_User) on delete restrict on update restrict;
+
+alter table User add constraint FK_DENONCER2 foreign key (ID_Signalement)
+    references Signalement (ID_Signalement) on delete restrict on update restrict;
 
