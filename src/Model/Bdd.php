@@ -5,10 +5,10 @@ class Bdd {
     private static $_instance = null;
 
     public static function InitInstance(){
-        $hostname="localhost";
-        $username="root";
-        $password="";
-        $dbname="cesiblog";
+        $hostname="mysql-louvel.alwaysdata.net";
+        $username="louvel";
+        $password="Vuxec654";
+        $dbname="louvel_edating";
 
         try
         {
