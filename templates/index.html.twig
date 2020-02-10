@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}CESI BLOG{% endblock %}</title>
+    <title>{% block title %}eDATING{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/pepper-grinder/jquery-ui.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -13,7 +13,7 @@
 
 <nav class="navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark">
 
-    <a class="navbar-brand" href="/Article/ListAll">eDATING</a>
+    <a class="navbar-brand" href="/Utilisateur/Show">eDATING</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -30,12 +30,6 @@
 
         </ul>
 
-
-
-        <form class="form-inline" method="post" action="/Article/Show/{{ post.search }}">
-            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher un article" name="search">
-            <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Rechercher" name="searchSubmit">
-        </form>
     </div>
 
 </nav>

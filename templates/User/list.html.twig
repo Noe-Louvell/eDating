@@ -1,0 +1,42 @@
+{% extends "index.html.twig" %}
+{% block title %} Liste des Utilisateurs - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Liste des Utilisateurs</h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for Utilisateur in UtilisateurList %}
+                <tr>
+                    <th scope="row"><a href="/Article/Show/{{ category.IdUtilisateur }}">#{{ category.IdUtilisateur }}</a></th>
+                    <td>{{ category.UNom }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-success" href="/Cat/Show/{{ Utilisateur.IdUtilisateur }}"><i class="far fa-eye"></i></a>
+                            <a class="btn btn-warning" href="/Cat/Update/{{ Utilisateur.IdUtilisateur }}"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" href="/Cat/Delete/{{ Utilisateur.IdUtilisateur }}"><i class="far fa-trash-alt"></i></a>
+                        </div>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}
