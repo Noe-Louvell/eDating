@@ -147,6 +147,40 @@ class Utilisateur implements \JsonSerializable{
             return array("1", "[ERREUR] ".$e->getMessage());
         }
     }
+    public function AddUtilisateur(\PDO $bdd) {
+        try{
+            $requete = $bdd->prepare('INSERT INTO Utilisateur (u_nom, u_prenom, sexe, ville, telephone, age, passion, prefhum, statut, parent, taille, corpulence, cheuveux, nationalite, religion, fumeur, description, email, password, role) VALUES(:u_nom, :u_prenom, :sexe, :ville, :telephone, :age, :passion, :prefhum, :statut, :parent, :taille, :corpulence, :cheuveux, :nationalite, :religion, :fumeur, :description, :email, :password, :role)');
+            $requete->execute([
+
+                'u_nom' => $this->getUNom(),
+                'u_prenom' => $this->getUPrenom(),
+                'sexe' => $this->getSexe(),
+                'ville' => $this->getVille(),
+                'telephone' => $this->getTelephone(),
+                'age' => $this->getAge(),
+                'passion' => $this->getPassion(),
+                'prefhum' => $this->getPrefhum(),
+                'statut' => $this->getStatut(),
+                'parent' => $this->getParent(),
+                'taille' => $this->getTaille(),
+                'corpulence' => $this->getCorpulence(),
+                'cheuveux' => $this->getCheuveux(),
+                'nationalite' => $this->getNationalite(),
+                'religion' => $this->getReligion(),
+                'fumeur' => $this->getFumeur(),
+                'description' => $this->getDescription(),
+                'email' => $this->getEmail(),
+                'password' => $this->getPassword(),
+                'role' => $this->getRole(),
+
+
+            ]);
+            return array("result"=>true,"message"=>$bdd->lastInsertId());
+        }catch (\Exception $e){
+            return array("result"=>false,"message"=>$e->getMessage());
+        }
+
+    }
 
 
 
