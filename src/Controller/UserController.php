@@ -6,7 +6,7 @@ use src\Model\Bdd;
 use src\Model\User;
 
 
-class UtilisateurController extends  AbstractController
+class UserController extends  AbstractController
 {
 
 

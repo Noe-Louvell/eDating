@@ -29,6 +29,13 @@ class PetController extends  AbstractController
         header('Location:/');
 
     }
+    public function DeleteOnePet($ID_Pet){
+        $PetSQL = new Pet();
+        $pet = $PetSQL->SqlGetOne(BDD::getInstance(),$ID_Pet);
+        $pet->DeletePet(BDD::getInstance(),$ID_Pet);
+
+        header('Location:/User');
+    }
 
 
 }

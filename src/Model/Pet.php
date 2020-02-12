@@ -12,6 +12,7 @@ class Pet implements JsonSerializable{
     private $entente;
     private $caractere;
     private $a_prenom;
+
     private $a_age;
 
     public function AddPet(\PDO $bdd) {
@@ -33,9 +34,41 @@ class Pet implements JsonSerializable{
         }
 
     }
-    
-    
-    
+    public function DeletePet(\PDO $bdd,$ID_Pet){
+        try{
+            $requete = $bdd->prepare('DELETE FROM Pet where ID_Pet = :ID_Pet');
+            $requete->execute([
+                'ID_Pet' => $ID_Pet
+            ]);
+            return true;
+        }catch (\Exception $e){
+            return false;
+        }
+
+    }
+    public function SqlGetOne(\PDO $bdd,$ID_Pet){
+        $requete = $bdd->prepare('SELECT * FROM Pet where ID_Pet = :ID_Pet');
+        $requete->execute([
+            'ID_Pet' => $ID_Pet
+        ]);
+
+        $datas =  $requete->fetch();
+
+        $pet = new Pet();
+        $pet->setIDPet($datas['ID_Pet']);
+        $pet->setIDRace($datas['ID_Race']);
+        $pet->setIDUser($datas['ID_User']);
+        $pet->setAPrenom($datas['a_prenom']);
+        $pet->setEntente($datas['entente']);
+        $pet->setCaractere($datas['caractere']);
+
+
+        return $pet;
+    }
+
+
+
+
     public function jsonSerialize()
     {
         return [
