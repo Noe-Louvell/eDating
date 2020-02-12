@@ -65,7 +65,7 @@ class UserController extends  AbstractController
         $user->setParent($userSQL['parent']);
         $user->setTaille($userSQL['taille']);
         $user->setCorpulence($userSQL['corpulence']);
-        $user->setCheuveux($userSQL['cheuveux']);
+        $user->setCheveux($userSQL['cheveux']);
         $user->setNationalite($userSQL['nationalite']);
         $user->setReligion($userSQL['religion']);
         $user->setFumeur($userSQL['fumeur']);
@@ -106,7 +106,7 @@ class UserController extends  AbstractController
         $user->setParent($_POST['parent']);
         $user->setTaille($_POST['taille']);
         $user->setCorpulence($_POST['corpulence']);
-        $user->setCheuveux($_POST['cheuveux']);
+        $user->setCheveux($_POST['cheveux']);
         $user->setNationalite($_POST['nationalite']);
         $user->setReligion($_POST['religion']);
         $user->setFumeur($_POST['fumeur']);

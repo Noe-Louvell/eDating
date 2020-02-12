@@ -19,7 +19,7 @@ class User implements \JsonSerializable{
     private $parent;
     private $taille;
     private $corpulence;
-    private $cheuveux;
+    private $cheveux;
     private $nationalite;
     private $religion;
     private $fumeur;
@@ -51,7 +51,7 @@ class User implements \JsonSerializable{
         $user->setParent($datas['parent']);
         $user->setTaille($datas['taille']);
         $user->setCorpulence($datas['corpulence']);
-        $user->setCheuveux($datas['cheuveux']);
+        $user->setCheveux($datas['cheveux']);
         $user->setNationalite($datas['nationalite']);
         $user->setReligion($datas['religion']);
         $user->setFumeur($datas['fumeur']);
@@ -88,7 +88,7 @@ class User implements \JsonSerializable{
             $user->setParent($userSQL['parent']);
             $user->setTaille($userSQL['taille']);
             $user->setCorpulence($userSQL['corpulence']);
-            $user->setCheuveux($userSQL['cheuveux']);
+            $user->setCheveux($userSQL['cheveux']);
             $user->setNationalite($userSQL['nationalite']);
             $user->setReligion($userSQL['religion']);
             $user->setFumeur($userSQL['fumeur']);
@@ -133,7 +133,7 @@ class User implements \JsonSerializable{
                 'parent' => $this->getParent(),
                 'taille' => $this->getTaille(),
                 'corpulence' => $this->getCorpulence(),
-                'cheuveux' => $this->getCheuveux(),
+                'cheveux' => $this->getCheveux(),
                 'nationalite' => $this->getNationalite(),
                 'religion' => $this->getReligion(),
                 'fumeur' => $this->getFumeur(),
@@ -167,7 +167,7 @@ class User implements \JsonSerializable{
                 'parent' => $this->getParent(),
                 'taille' => $this->getTaille(),
                 'corpulence' => $this->getCorpulence(),
-                'cheuveux' => $this->getCheuveux(),
+                'cheveux' => $this->getCheveux(),
                 'nationalite' => $this->getNationalite(),
                 'religion' => $this->getReligion(),
                 'fumeur' => $this->getFumeur(),
@@ -203,7 +203,7 @@ class User implements \JsonSerializable{
             'parent' => $this->getParent(),
             'taille' => $this->getTaille(),
             'corpulence' => $this->getCorpulence(),
-            'cheuveux' => $this->getCheuveux(),
+            'cheuvex' => $this->getCheveux(),
             'nationalite' => $this->getNationalite(),
             'religion' => $this->getReligion(),
             'fumeur' => $this->getFumeur(),
@@ -441,17 +441,17 @@ class User implements \JsonSerializable{
     /**
      * @return mixed
      */
-    public function getCheuveux()
+    public function getCheveux()
     {
-        return $this->cheuveux;
+        return $this->cheveux;
     }
 
     /**
      * @param mixed $cheuveux
      */
-    public function setCheuveux($cheuveux)
+    public function setCheveux($cheveux)
     {
-        $this->cheuveux = $cheuveux;
+        $this->cheveux = $cheveux;
         return $this;
     }
 
