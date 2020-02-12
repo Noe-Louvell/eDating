@@ -5,8 +5,8 @@ namespace src\Model;
 
 
 
-class Utilisateur implements \JsonSerializable{
-    private $ID_Utilisateur;
+class User implements \JsonSerializable{
+    private $ID_User;
     private $u_nom;
     private $u_prenom;
     private $sexe;
@@ -29,86 +29,86 @@ class Utilisateur implements \JsonSerializable{
     private $role;
 
 
-    public function SqlGetOneUtilisateur(\PDO $bdd,$ID_Utilisateur){
-        $requete = $bdd->prepare('SELECT * FROM Utilisateur where ID_Utilisateur = :ID_Utilisateur');
+    public function SqlGetOneUser(\PDO $bdd,$ID_User){
+        $requete = $bdd->prepare('SELECT * FROM User where ID_User = :ID_User');
         $requete->execute([
-            'ID_Utilisateur' => $ID_Utilisateur
+            'ID_User' => $ID_User
         ]);
 
         $datas =  $requete->fetch();
 
-        $utilisateur = new Utilisateur();
-        $utilisateur->setIdUtilisateur($datas['ID_Utilisateur']);
-        $utilisateur->setUNom($datas['u_nom']);
-        $utilisateur->setUPrenom($datas['u_prenom']);
-        $utilisateur->setSexe($datas['sexe']);
-        $utilisateur->setVille($datas['ville']);
-        $utilisateur->setTelephone($datas['telephone']);
-        $utilisateur->setAge($datas['age']);
-        $utilisateur->setPassion($datas['passion']);
-        $utilisateur->setPrefhum($datas['prefhum']);
-        $utilisateur->setStatut($datas['statut']);
-        $utilisateur->setParent($datas['parent']);
-        $utilisateur->setTaille($datas['taille']);
-        $utilisateur->setCorpulence($datas['corpulence']);
-        $utilisateur->setCheuveux($datas['cheuveux']);
-        $utilisateur->setNationalite($datas['nationalite']);
-        $utilisateur->setReligion($datas['religion']);
-        $utilisateur->setFumeur($datas['fumeur']);
-        $utilisateur->setDescription($datas['description']);
-        $utilisateur->setEmail($datas['email']);
-        $utilisateur->setPassword($datas['password']);
-        $utilisateur->setRole($datas['role']);
+        $user = new User();
+        $user->setIdUser($datas['ID_User']);
+        $user->setUNom($datas['u_nom']);
+        $user->setUPrenom($datas['u_prenom']);
+        $user->setSexe($datas['sexe']);
+        $user->setVille($datas['ville']);
+        $user->setTelephone($datas['telephone']);
+        $user->setAge($datas['age']);
+        $user->setPassion($datas['passion']);
+        $user->setPrefhum($datas['prefhum']);
+        $user->setStatut($datas['statut']);
+        $user->setParent($datas['parent']);
+        $user->setTaille($datas['taille']);
+        $user->setCorpulence($datas['corpulence']);
+        $user->setCheuveux($datas['cheuveux']);
+        $user->setNationalite($datas['nationalite']);
+        $user->setReligion($datas['religion']);
+        $user->setFumeur($datas['fumeur']);
+        $user->setDescription($datas['description']);
+        $user->setEmail($datas['email']);
+        $user->setPassword($datas['password']);
+        $user->setRole($datas['role']);
 
-        var_dump($utilisateur);
+        var_dump($user);
 
 
-        return $utilisateur;
+        return $user;
     }
 
 
-    public function SqlGetAllUtilisateur(\PDO $bdd){
-        $requete = $bdd->prepare('SELECT * FROM Utilisateur');
+    public function SqlGetAllUser(\PDO $bdd){
+        $requete = $bdd->prepare('SELECT * FROM User');
         $requete->execute();
-        $arrayUtilisateur = $requete->fetchAll();
+        $arrayUser = $requete->fetchAll();
 
-        $listUtilisateur = [];
-        foreach ($arrayUtilisateur as $utilisateurSQL){
-            $utilisateur = new Utilisateur();
-            $utilisateur->setIdUtilisateur($utilisateurSQL['ID_Utilisateur']);
-            $utilisateur->setUNom($utilisateurSQL['u_nom']);
-            $utilisateur->setUPrenom($utilisateurSQL['u_prenom']);
-            $utilisateur->setSexe($utilisateurSQL['sexe']);
-            $utilisateur->setVille($utilisateurSQL['ville']);
-            $utilisateur->setTelephone($utilisateurSQL['telephone']);
-            $utilisateur->setAge($utilisateurSQL['age']);
-            $utilisateur->setPassion($utilisateurSQL['passion']);
-            $utilisateur->setPrefhum($utilisateurSQL['prefhum']);
-            $utilisateur->setStatut($utilisateurSQL['statut']);
-            $utilisateur->setParent($utilisateurSQL['parent']);
-            $utilisateur->setTaille($utilisateurSQL['taille']);
-            $utilisateur->setCorpulence($utilisateurSQL['corpulence']);
-            $utilisateur->setCheuveux($utilisateurSQL['cheuveux']);
-            $utilisateur->setNationalite($utilisateurSQL['nationalite']);
-            $utilisateur->setReligion($utilisateurSQL['religion']);
-            $utilisateur->setFumeur($utilisateurSQL['fumeur']);
-            $utilisateur->setDescription($utilisateurSQL['description']);
-            $utilisateur->setEmail($utilisateurSQL['email']);
-            $utilisateur->setPassword($utilisateurSQL['password']);
-            $utilisateur->setRole($utilisateurSQL['role']);
-            $listUtilisateur[] = $utilisateur;
+        $listUser = [];
+        foreach ($arrayUser as $userSQL){
+            $user = new User();
+            $user->setIdUser($userSQL['ID_User']);
+            $user->setUNom($userSQL['u_nom']);
+            $user->setUPrenom($userSQL['u_prenom']);
+            $user->setSexe($userSQL['sexe']);
+            $user->setVille($userSQL['ville']);
+            $user->setTelephone($userSQL['telephone']);
+            $user->setAge($userSQL['age']);
+            $user->setPassion($userSQL['passion']);
+            $user->setPrefhum($userSQL['prefhum']);
+            $user->setStatut($userSQL['statut']);
+            $user->setParent($userSQL['parent']);
+            $user->setTaille($userSQL['taille']);
+            $user->setCorpulence($userSQL['corpulence']);
+            $user->setCheuveux($userSQL['cheuveux']);
+            $user->setNationalite($userSQL['nationalite']);
+            $user->setReligion($userSQL['religion']);
+            $user->setFumeur($userSQL['fumeur']);
+            $user->setDescription($userSQL['description']);
+            $user->setEmail($userSQL['email']);
+            $user->setPassword($userSQL['password']);
+            $user->setRole($userSQL['role']);
+            $listUser[] = $user;
 
         }
-        return $listUtilisateur;
+        return $listUser;
 
 
     }
 
-    public function DeleteUtilisateur(\PDO $bdd,$ID_Utilisateur){
+    public function DeleteUser(\PDO $bdd,$ID_User){
         try{
-            $requete = $bdd->prepare('DELETE FROM Utilisateur where ID_Utilisateur = :ID_Utilisateur');
+            $requete = $bdd->prepare('DELETE FROM User where ID_User = :ID_User');
             $requete->execute([
-                'ID_Utilisateur' => $ID_Utilisateur
+                'ID_User' => $ID_User
             ]);
             return true;
         }catch (\Exception $e){
@@ -116,11 +116,11 @@ class Utilisateur implements \JsonSerializable{
         }
 
     }
-    public function UpdateUtilisateur(\PDO $bdd){
+    public function UpdateUser(\PDO $bdd){
         try{
-            $requete = $bdd->prepare('UPDATE Utilisateur set u_nom=:u_nom, u_prenom=:u_prenom, sexe=:sexe, ville=:ville, telephone=:telephone,age=:age,passion=:passion,prefhum=:prefhum,statut=:statut,parent=: parent,taille=:taille,corpulence=:corpulence,cheuveux=:cheuveux,nationalite=:nationalite,religion=:religion,fumeur=:fumeur,description=:description,email=:email,password=:password,role=:role WHERE ID_Utilisateur=:ID_Utilisateur');
+            $requete = $bdd->prepare('UPDATE User set u_nom=:u_nom, u_prenom=:u_prenom, sexe=:sexe, ville=:ville, telephone=:telephone,age=:age,passion=:passion,prefhum=:prefhum,role=:role,parent=: parent,taille=:taille,corpulence=:corpulence,cheuveux=:cheuveux,nationalite=:nationalite,religion=:religion,fumeur=:fumeur,description=:description,email=:email,password=:password,role=:role WHERE ID_Utilisateur=:ID_Utilisateur');
             $requete->execute([
-                'ID_Utilisateur' => $this->getIdUtilisateur(),
+                'ID_User' => $this->getIdUser(),
                 'u_nom' => $this->getUNom(),
                 'u_prenom' => $this->getUPrenom(),
                 'sexe' => $this->getSexe(),
@@ -147,9 +147,12 @@ class Utilisateur implements \JsonSerializable{
             return array("1", "[ERREUR] ".$e->getMessage());
         }
     }
-    public function AddUtilisateur(\PDO $bdd) {
+    public function AddUser(\PDO $bdd,$password) {
         try{
-            $requete = $bdd->prepare('INSERT INTO Utilisateur (u_nom, u_prenom, sexe, ville, telephone, age, passion, prefhum, statut, parent, taille, corpulence, cheuveux, nationalite, religion, fumeur, description, email, password, role) VALUES(:u_nom, :u_prenom, :sexe, :ville, :telephone, :age, :passion, :prefhum, :statut, :parent, :taille, :corpulence, :cheuveux, :nationalite, :religion, :fumeur, :description, :email, :password, :role)');
+            $pass_hash = password_hash($password, PASSWORD_BCRYPT);
+
+            $requete = $bdd->prepare('INSERT INTO User (u_nom, u_prenom, sexe, ville, telephone, age, passion, prefhum, statut, parent, taille, corpulence, cheuveux, nationalite, religion, fumeur, description, email, password, role) 
+                                                VALUES(:u_nom, :u_prenom, :sexe, :ville, :telephone, :age, :passion, :prefhum, :statut, :parent, :taille, :corpulence, :cheuveux, :nationalite, :religion, :fumeur, :description, :email, :password, :role)');
             $requete->execute([
 
                 'u_nom' => $this->getUNom(),
@@ -170,7 +173,7 @@ class Utilisateur implements \JsonSerializable{
                 'fumeur' => $this->getFumeur(),
                 'description' => $this->getDescription(),
                 'email' => $this->getEmail(),
-                'password' => $this->getPassword(),
+                'password' => $pass_hash,
                 'role' => $this->getRole(),
 
 
@@ -187,7 +190,7 @@ class Utilisateur implements \JsonSerializable{
     public function jsonSerialize()
     {
         return [
-            'ID_Utilisateur' => $this->getIdUtilisateur(),
+            'ID_User' => $this->getIdUser(),
             'u_nom' => $this->getUNom(),
             'u_prenom' => $this->getUPrenom(),
             'sexe' => $this->getSexe(),
@@ -216,17 +219,17 @@ class Utilisateur implements \JsonSerializable{
     /**
      * @return mixed
      */
-    public function getIdUtilisateur()
+    public function getIdUser()
     {
-        return $this->ID_Utilisateur;
+        return $this->ID_User;
     }
 
     /**
-     * @param mixed $ID_Utilisateur
+     * @param mixed $ID_User
      */
-    public function setIdUtilisateur($ID_Utilisateur)
+    public function setIdUser($ID_User)
     {
-        $this->ID_Utilisateur = $ID_Utilisateur;
+        $this->ID_User = $ID_User;
         return $this;
     }
 

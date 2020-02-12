@@ -17,9 +17,15 @@ function chargerClasse($classe){
 spl_autoload_register('chargerClasse');
 
 $router = new \src\Router\Router($_GET['url']);
-$router->get('/Utilisateur/List', 'Utilisateur#AllUtilisateur');
-$router->get('/Utilisateur/Show/:ID_Utilisateur','Utilisateur#OneUtilisateur#:ID_Utilisateur');
-$router->get('/Utilisateur/Delete/:ID_Utilisateur','Utilisateur#Delete#:ID_Utilisateur');
+//Profile de tout les utilisateurs afficher sur une page
+$router->get('/User/List', 'User#AllUser');
+//Profile de 1 utilisateur
+$router->get('/User/Show/:ID_User','User#OneUser#:ID_User');
+//Suppression de 1 utilisateur
+$router->get('/User/Delete/:ID_User','User#DeleteUser#:ID_User');
+//Création d'utilisateur
+$router->get('/Register','User#registerFrom');
+$router->post('/Register','User#registerAdd');
 
 
 echo $router->run();

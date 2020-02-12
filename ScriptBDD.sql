@@ -45,7 +45,7 @@ create table Animal
 create table Citation
 (
     ID_Citation          int not null auto_increment,
-    Phrase              varchar(100),
+    Phrase              text,
     primary key (ID_Citation)
 );
 
@@ -89,7 +89,8 @@ create table Message
     ID_User       int not null,
     UTI_ID_User   int not null,
     me_date              datetime,
-    me_contenue          varchar(100),
+    message        text,
+
     primary key (ID_Message)
 );
 
@@ -142,7 +143,7 @@ create table User
     u_prenom             varchar(100),
     sexe               ENUM ('Homme','Femme','Autre'),
     ville             varchar(100),
-    telephone          char(10),
+    telephone          varchar(100),
     age                varchar(100),
     passion            varchar(100),
     prefhum         ENUM ('Homme','Femme','Les deux'),
@@ -152,12 +153,12 @@ create table User
     corpulence         ENUM ('Maigre','Normal','Fat AF'),
     cheuveux            ENUM ('Long','Mi long','Court','Long','Bouclés'),
     nationalite         varchar(100),
-    religion              ENUM ('Islam','Christianisme','Bouddhisme','Hindouisme','Judaïsme'),
+    religion              ENUM ('Non','Islam','Christianisme','Bouddhisme','Hindouisme','Judaïsme'),
     fumeur              ENUM ('Oui','Occasionnellement','Non'),
     description        varchar(255),
     email                 varchar(100),
-    password           varchar(100),
-    role               int,
+    password           varchar(250),
+    role               ENUM ('Utilisateur','Admin'),
         primary key (ID_User)
 );
 

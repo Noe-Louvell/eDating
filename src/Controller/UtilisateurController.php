@@ -3,82 +3,83 @@
 namespace src\Controller;
 
 use src\Model\Bdd;
-use src\Model\Utilisateur;
+use src\Model\User;
+
 
 class UtilisateurController extends  AbstractController
 {
 
 
     public function Index(){
-        return $this->AllUtilisateur();
+        return $this->AllUser();
     }
 
-    public function OneUtilisateur($ID_Utilisateur){
+    public function OneUtilisateur($ID_User){
         // affiche un article seul
 
-        $utilisateur = new Utilisateur();
-        $utilisateur->SqlGetOneUtilisateur(Bdd::GetInstance(),$ID_Utilisateur);
+        $user = new User();
+        $user->SqlGetOneUser(Bdd::GetInstance(),$ID_User);
 
         //Lancer la vue TWIG
         return $this->twig->render('/User/view.html.twig',[
-            'utilisateur' => $utilisateur
+            'user' => $user
         ]);
     }
 
-    public function AllUtilisateur(){
+    public function AllUser(){
         // affiche plusieurs utilisateurs
-        $Utilisateur = new Utilisateur();
-        $listUtilisateur = $Utilisateur->SqlGetAllUtilisateur(Bdd::GetInstance());
+        $User = new User();
+        $listUser = $User->SqlGetAllUser(Bdd::GetInstance());
 
         //Lancer la vue TWIG
         return $this->twig->render(
             'User/list.html.twig',[
-                'UtilisateurList' => $listUtilisateur
+                'UtilisateurList' => $listUser
             ]
         );
 
     }
-    public function Delete($ID_Utilisateur){
-        $UtilisateurSQL = new Utilisateur();
-        $utilisateur = $UtilisateurSQL->SqlGetOneUtilisateur(BDD::getInstance(),$ID_Utilisateur);
-        $utilisateur->DeleteUtilisateur(BDD::getInstance(),$ID_Utilisateur);
+    public function DeleteUser($ID_User){
+        $UserSQL = new User();
+        $user = $UserSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
+        $user->DeleteUser(BDD::getInstance(),$ID_User);
 
-        header('Location:/Utilisateur');
+        header('Location:/User');
     }
 
 
-    public function updateUtilisateur($ID_Utilisateur){
-        $utilisateurSQL = new Utilisateur();
-        $utilisateur = $utilisateurSQL->SqlGetOneUtilisateur(BDD::getInstance(),$ID_Utilisateur);
+    public function updateUser($ID_User){
+        $userSQL = new User();
+        $user = $userSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
 
-        $utilisateur->setIdUtilisateur($utilisateurSQL['ID_Utilisateur']);
-        $utilisateur->setUNom($utilisateurSQL['u_nom']);
-        $utilisateur->setUPrenom($utilisateurSQL['u_prenom']);
-        $utilisateur->setSexe($utilisateurSQL['sexe']);
-        $utilisateur->setVille($utilisateurSQL['ville']);
-        $utilisateur->setTelephone($utilisateurSQL['telephone']);
-        $utilisateur->setAge($utilisateurSQL['age']);
-        $utilisateur->setPassion($utilisateurSQL['passion']);
-        $utilisateur->setPrefhum($utilisateurSQL['prefhum']);
-        $utilisateur->setStatut($utilisateurSQL['statut']);
-        $utilisateur->setParent($utilisateurSQL['parent']);
-        $utilisateur->setTaille($utilisateurSQL['taille']);
-        $utilisateur->setCorpulence($utilisateurSQL['corpulence']);
-        $utilisateur->setCheuveux($utilisateurSQL['cheuveux']);
-        $utilisateur->setNationalite($utilisateurSQL['nationalite']);
-        $utilisateur->setReligion($utilisateurSQL['religion']);
-        $utilisateur->setFumeur($utilisateurSQL['fumeur']);
-        $utilisateur->setDescription($utilisateurSQL['description']);
-        $utilisateur->setEmail($utilisateurSQL['email']);
-        $utilisateur->setPassword($utilisateurSQL['password']);
-        $utilisateur->setRole($utilisateurSQL['role']);
-        ;
+        $user->setIdUser($userSQL['ID_User']);
+        $user->setUNom($userSQL['u_nom']);
+        $user->setUPrenom($userSQL['u_prenom']);
+        $user->setSexe($userSQL['sexe']);
+        $user->setVille($userSQL['ville']);
+        $user->setTelephone($userSQL['telephone']);
+        $user->setAge($userSQL['age']);
+        $user->setPassion($userSQL['passion']);
+        $user->setPrefhum($userSQL['prefhum']);
+        $user->setStatut($userSQL['statut']);
+        $user->setParent($userSQL['parent']);
+        $user->setTaille($userSQL['taille']);
+        $user->setCorpulence($userSQL['corpulence']);
+        $user->setCheuveux($userSQL['cheuveux']);
+        $user->setNationalite($userSQL['nationalite']);
+        $user->setReligion($userSQL['religion']);
+        $user->setFumeur($userSQL['fumeur']);
+        $user->setDescription($userSQL['description']);
+        $user->setEmail($userSQL['email']);
+        $user->setPassword($userSQL['password']);
+        $user->setRole($userSQL['role']);
 
-        $utilisateur->UpdateUtilisateur(BDD::getInstance());
+
+        $user->UpdateUser(BDD::getInstance());
 
 
         return $this->twig->render('User/update.html.twig',[
-            'utilisateur' => $utilisateur
+            'user' => $user
         ]);
 
     }
@@ -90,28 +91,30 @@ class UtilisateurController extends  AbstractController
     {
         $sqlRepository = null;
 
-        $utilisateur = new Utilisateur();
 
-        $utilisateur->setUNom($_POST['u_nom']);
-        $utilisateur->setUPrenom($_POST['u_prenom']);
-        $utilisateur->setSexe($_POST['sexe']);
-        $utilisateur->setVille($_POST['ville']);
-        $utilisateur->setTelephone($_POST['telephone']);
-        $utilisateur->setAge($_POST['age']);
-        $utilisateur->setPassion($_POST['passion']);
-        $utilisateur->setPrefhum($_POST['prefhum']);
-        $utilisateur->setStatut($_POST['statut']);
-        $utilisateur->setParent($_POST['parent']);
-        $utilisateur->setTaille($_POST['taille']);
-        $utilisateur->setCorpulence($_POST['corpulence']);
-        $utilisateur->setCheuveux($_POST['cheuveux']);
-        $utilisateur->setNationalite($_POST['nationalite']);
-        $utilisateur->setReligion($_POST['religion']);
-        $utilisateur->setFumeur($_POST['fumeur']);
-        $utilisateur->setDescription($_POST['description']);
-        $utilisateur->setEmail($_POST['email']);
-        $utilisateur->setPassword($_POST['password']);
-        $utilisateur->AddUtilisateur(BDD::getInstance());
+        $user = new User();
+
+        $user->setUNom($_POST['u_nom']);
+        $user->setUPrenom($_POST['u_prenom']);
+        $user->setSexe($_POST['sexe']);
+        $user->setVille($_POST['ville']);
+        $user->setTelephone($_POST['telephone']);
+        $user->setAge($_POST['age']);
+        $user->setPassion($_POST['passion']);
+        $user->setPrefhum($_POST['prefhum']);
+        $user->setStatut($_POST['statut']);
+        $user->setParent($_POST['parent']);
+        $user->setTaille($_POST['taille']);
+        $user->setCorpulence($_POST['corpulence']);
+        $user->setCheuveux($_POST['cheuveux']);
+        $user->setNationalite($_POST['nationalite']);
+        $user->setReligion($_POST['religion']);
+        $user->setFumeur($_POST['fumeur']);
+        $user->setDescription($_POST['description']);
+        $user->setEmail($_POST['email']);
+        $user->setPassword($_POST['password']);
+
+        $user->AddUser(BDD::getInstance());
         header('Location:/');
     }
 
