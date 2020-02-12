@@ -17,21 +17,34 @@ function chargerClasse($classe){
 spl_autoload_register('chargerClasse');
 
 $router = new \src\Router\Router($_GET['url']);
+//====================================================================================================//
+
+//USER ROUTE //
+
 //Profile de tout les utilisateurs afficher sur une page//
 $router->get('/User/List', 'User#AllUser');
+
 //Profile de 1 utilisateur//
 $router->get('/User/Show/:ID_User','User#OneUser#:ID_User');
+
 //Suppression de 1 utilisateur//
 $router->get('/User/Delete/:ID_User','User#DeleteUser#:ID_User');
+
 //Création d'utilisateur//
 $router->get('/Register','User#registerFrom');
 $router->post('/Register','User#registerAdd');
 
-
+//====================================================================================================//
 //ANIMAL ROUTE//
+
 //Création de pet//
 $router->get('/Pet/Add','Pet#AddPetView');
 $router->post('/Pet/Add','Pet#AddPet');
+
+//Delete de Pet//
+$router->get('Pet/Delete/:ID_Pet','Pet#DeleteOnePet#:ID_Pet');
+
+//====================================================================================================//
 
 
 

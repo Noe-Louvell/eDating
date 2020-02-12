@@ -46,7 +46,7 @@ class Pet implements JsonSerializable{
         }
 
     }
-    public function SqlGetOne(\PDO $bdd,$ID_Pet){
+    public function SqlGetOnePet(\PDO $bdd,$ID_Pet){
         $requete = $bdd->prepare('SELECT * FROM Pet where ID_Pet = :ID_Pet');
         $requete->execute([
             'ID_Pet' => $ID_Pet
@@ -64,6 +64,20 @@ class Pet implements JsonSerializable{
 
 
         return $pet;
+    }
+    public function UpdatePet(\PDO $bdd){
+            try{
+                $requete = $bdd->prepare('UPDATE Pet set entente=:entente,caractere=:caractere 
+                                                    WHERE ID_Pet=:ID_Pet');
+                $requete->execute([
+                    'entente' => $this->getEntente(),
+                    'caractere' => $this->getCaractere(),
+                ]);
+                return array("0", "[OK] Update");
+            }catch (\Exception $e){
+                return array("1", "[ERREUR] ".$e->getMessage());
+            }
+
     }
 
 
