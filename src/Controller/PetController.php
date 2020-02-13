@@ -53,9 +53,23 @@ class PetController extends  AbstractController
         $pet->UpdatePet(BDD::getInstance());
 
 
-        return $this->twig->render('Pet/updatePet.html.twig',[
+            return $this->twig->render('Pet/updatePet.html.twig',[
             'pet' => $pet
         ]);
+    }
+
+    public function ShowAllPet(){
+            // affiche plusieurs utilisateurs
+            $User = new Pet();
+            $listUser = $User->SqlGetAllPet(Bdd::GetInstance());
+
+            //Lancer la vue TWIG
+            return $this->twig->render(
+                'User/ListPet.html.twig',[
+                    'UtilisateurList' => $listUser
+                ]
+            );
+
     }
 
 

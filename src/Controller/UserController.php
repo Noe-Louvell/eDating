@@ -14,12 +14,12 @@ class UserController extends  AbstractController
         return $this->AllUser();
     }
 
-    public function OneUtilisateur($ID_User){
+    public function OneUser($ID_User){
         // affiche un article seul
 
         $user = new User();
         $user->SqlGetOneUser(Bdd::GetInstance(),$ID_User);
-
+        var_dump($user);
         //Lancer la vue TWIG
         return $this->twig->render('/User/view.html.twig',[
             'user' => $user
@@ -34,7 +34,7 @@ class UserController extends  AbstractController
         //Lancer la vue TWIG
         return $this->twig->render(
             'User/list.html.twig',[
-                'UtilisateurList' => $listUser
+                'UserList' => $listUser
             ]
         );
 
@@ -100,17 +100,7 @@ class UserController extends  AbstractController
         $user->setVille($_POST['ville']);
         $user->setTelephone($_POST['telephone']);
         $user->setAge($_POST['age']);
-        $user->setPassion($_POST['passion']);
         $user->setPrefhum($_POST['prefhum']);
-        $user->setStatut($_POST['statut']);
-        $user->setParent($_POST['parent']);
-        $user->setTaille($_POST['taille']);
-        $user->setCorpulence($_POST['corpulence']);
-        $user->setCheveux($_POST['cheveux']);
-        $user->setNationalite($_POST['nationalite']);
-        $user->setReligion($_POST['religion']);
-        $user->setFumeur($_POST['fumeur']);
-        $user->setDescription($_POST['description']);
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
@@ -118,10 +108,67 @@ class UserController extends  AbstractController
         header('Location:/');
     }
 
+    public function loginFrom(){
+        unset($_SESSION['errorlogin']);
+
+        return $this->twig->render('User/login.html.twig');
+    }
+
+    public function loginCheck()
+    {
+
+        $userall = new User();
+        $Allemail = $userall->SqlGetAllemailUser(Bdd::GetInstance());
+
+        $email_ok = false;
+
+        foreach ($Allemail as $email) {
+            if (strtolower(trim($_POST['email'])) == strtolower(trim($email))) {
+                $email_ok = true;
+            }
+        }
+
+        if ($email_ok == false) {
+            $_SESSION['errorlogin'] = "Erreur dans l'email ou le mdp";
+            header('Location:/Login');
+            return;
+        }
 
 
+        $user = new User();
+        $userInfoLog = $user->SqlGetLogin(Bdd::GetInstance(), ($_POST['email']));
+        $userInfoLog['password'];
+
+        if (strtolower(trim($_POST['password'])) ==  $userInfoLog['password']){
+            $_SESSION['login'] = array("id" => $userInfoLog['ID_User'],
+                "Prenom" => $userInfoLog['u_prenom'],
+                "Nom" => $userInfoLog['u_nom'],
+                "Email" => $userInfoLog['email']);
+            header('Location:/');
 
 
+        } else {
+            echo 'Fail';
+            $_SESSION['errorlogin'] = "Email ou Mot de passe false ";
+            header('Location:/Login');
+
+            return ;
+        }
+    }
+
+    public function logout()
+    {
+        unset($_SESSION['login']);
+        unset($_SESSION['errorlogin']);
 
 
+        header('Location:/');
+    }
 }
+
+
+
+
+
+
+

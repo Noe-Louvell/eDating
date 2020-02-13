@@ -46,10 +46,11 @@ class Pet implements JsonSerializable{
         }
 
     }
-    public function SqlGetOnePet(\PDO $bdd,$ID_Pet){
-        $requete = $bdd->prepare('SELECT * FROM Pet where ID_Pet = :ID_Pet');
+    public function SqlGetOnePet(\PDO $bdd,$ID_Pet,$Id_User){
+        $requete = $bdd->prepare('SELECT * FROM Pet where ID_Pet = :ID_Pet AND ID_User=:ID_User');
         $requete->execute([
-            'ID_Pet' => $ID_Pet
+            'ID_Pet' => $ID_Pet,
+            'ID_User' => $Id_User
         ]);
 
         $datas =  $requete->fetch();
@@ -64,6 +65,29 @@ class Pet implements JsonSerializable{
 
 
         return $pet;
+    }
+    public function SqlGetAllPet(\PDO $bdd,$ID_User)
+    {
+        $requete = $bdd->prepare('SELECT * FROM Pet WHERE ID_User=:ID_User');
+        $requete->execute([
+            'ID_User' => $ID_User
+        ]);
+        $arrayPet = $requete->fetchAll();
+
+        $listPet = [];
+        foreach ($arrayPet as $petSQL) {
+            $pet = new Pet();
+
+            $pet->setIDPet($petSQL['ID_Pet']);
+            $pet->setIDRace($petSQL['ID_Race']);
+            $pet->setIDUser($petSQL['ID_User']);
+            $pet->setAPrenom($petSQL['a_prenom']);
+            $pet->setEntente($petSQL['entente']);
+            $pet->setCaractere($petSQL['caractere']);
+            $listUser[] = $pet;
+
+        }
+        return $listPet;
     }
     public function UpdatePet(\PDO $bdd){
             try{
@@ -216,6 +240,8 @@ class Pet implements JsonSerializable{
         $this->a_prenom = $a_prenom;
         return $this;
     }
+
+
 
     
 }

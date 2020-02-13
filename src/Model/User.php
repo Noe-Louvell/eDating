@@ -60,9 +60,6 @@ class User implements \JsonSerializable{
         $user->setPassword($datas['password']);
         $user->setRole($datas['role']);
 
-        var_dump($user);
-
-
         return $user;
     }
 
@@ -103,6 +100,39 @@ class User implements \JsonSerializable{
 
 
     }
+    public function SqlGetAllemailUser(\PDO $bdd){
+        $requete = $bdd->prepare('SELECT email FROM User');
+        $requete->execute();
+        $arrayUserEmail = $requete->fetchAll();
+
+        $listUserEmail =[];
+        foreach ($arrayUserEmail as $userSQL){
+            $user = new User();
+            $user->setEmail($userSQL['email']);
+            $listUserEmail[] = $user;
+        }
+        return $listUserEmail;
+    }
+
+    public function SqlGetLogin(\PDO $bdd , $emailuser){
+        $query = $bdd->prepare('SELECT password,ID_User,email,u_prenom,u_nom FROM User WHERE email = :useremail');
+        $query->execute([
+            'useremail' => $emailuser
+        ]);
+
+        $UserInfoLog = $query->fetch();
+        $user = new User();
+        $user->setPassword($UserInfoLog['password']);
+        $user->setIdUser($UserInfoLog['ID_User']);
+        $user->setUNom($UserInfoLog['u_nom']);
+        $user->setUPrenom($UserInfoLog['u_prenom']);
+        $user->setEmail($UserInfoLog['email']);
+
+        $UserInfoLog[] = $user;
+
+        return $UserInfoLog;
+    }
+
 
     public function DeleteUser(\PDO $bdd,$ID_User){
         try{
@@ -148,12 +178,12 @@ class User implements \JsonSerializable{
             return array("1", "[ERREUR] ".$e->getMessage());
         }
     }
-    public function AddUser(\PDO $bdd,$password) {
+    public function AddUser(\PDO $bdd) {
         try{
-            $pass_hash = password_hash($password, PASSWORD_BCRYPT);
+            #$pass_hash = password_hash($password, PASSWORD_BCRYPT);
 
-            $requete = $bdd->prepare('INSERT INTO User (u_nom, u_prenom, sexe, ville, telephone, age, passion, prefhum, statut, parent, taille, corpulence, cheuveux, nationalite, religion, fumeur, description, email, password, role) 
-                                                VALUES(:u_nom, :u_prenom, :sexe, :ville, :telephone, :age, :passion, :prefhum, :statut, :parent, :taille, :corpulence, :cheuveux, :nationalite, :religion, :fumeur, :description, :email, :password, :role)');
+            $requete = $bdd->prepare('INSERT INTO User (u_nom, u_prenom, sexe, ville, telephone, age, prefhum, statut, email, password) 
+                                                VALUES(:u_nom, :u_prenom, :sexe, :ville, :telephone, :age, :prefhum, :statut, :email, :password)');
             $requete->execute([
 
                 'u_nom' => $this->getUNom(),
@@ -162,21 +192,10 @@ class User implements \JsonSerializable{
                 'ville' => $this->getVille(),
                 'telephone' => $this->getTelephone(),
                 'age' => $this->getAge(),
-                'passion' => $this->getPassion(),
                 'prefhum' => $this->getPrefhum(),
                 'statut' => $this->getStatut(),
-                'parent' => $this->getParent(),
-                'taille' => $this->getTaille(),
-                'corpulence' => $this->getCorpulence(),
-                'cheveux' => $this->getCheveux(),
-                'nationalite' => $this->getNationalite(),
-                'religion' => $this->getReligion(),
-                'fumeur' => $this->getFumeur(),
-                'description' => $this->getDescription(),
                 'email' => $this->getEmail(),
-                'password' => $pass_hash,
-                'role' => $this->getRole(),
-
+                'password' => $this->getPassword(),
 
             ]);
             return array("result"=>true,"message"=>$bdd->lastInsertId());
@@ -216,6 +235,7 @@ class User implements \JsonSerializable{
 
         ];
     }
+
 
     /**
      * @return mixed

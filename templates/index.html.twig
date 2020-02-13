@@ -11,9 +11,10 @@
 
 <body>
 
+
 <nav class="navbar sticky-top nav-pills navbar-expand-lg navbar-dark bg-dark">
 
-    <a class="navbar-brand" href="/Utilisateur/Show">eDATING</a>
+    <a class="navbar-brand" href="/User/Show/{{ User.IdUser }}">eDATING</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,10 +23,10 @@
 
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" href="/Utilisateur/Show">Mon Profile</a>
+                <a class="btn btn-success" href="/User/Show/{{ User.IdUser }}"><i class="far fa-user"></i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Article/Add">Ajout d'un article</a>
+                <a class="nav-link" href="/User/List"><i class="fas fa-search"></i></a>
             </li>
 
         </ul>

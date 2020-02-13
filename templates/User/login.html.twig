@@ -1,0 +1,22 @@
+{% extends "index.html.twig" %}
+{% block title %}{{ parent() }} - Connectez-vous {% endblock %}
+{% block body %}
+
+    <div class="container-fluid mt-2">
+        {% if session.errorlogin is defined %}
+            <div class="alert alert-danger">{{ session.errorlogin }}</div>
+        {% endif %}
+        <form method="post" action="/Login">
+
+
+            <p>Adresse e-mail :</p>
+            <input type="email" name="email" class="form-control form-control-lg">
+            <p>Mot de passe :</p>
+            <input type="password" name="password" class="form-control form-control-lg">
+
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+
+{% endblock %}

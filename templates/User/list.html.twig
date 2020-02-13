@@ -1,0 +1,49 @@
+{% extends "index.html.twig" %}
+{% block title %} Liste des User - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Liste des User</h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
+                <th scope="col">Age</th>
+                <th scope="col">Sexe</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <a class="btn btn-danger" href="/Register"><i class="fas fa-plus"></i><p>Creation d'utilisateur</p></a>
+            <br>
+            <br>
+            {% for User in UserList %}
+                <tr>
+                    <th scope="row"><a href="/Article/Show/{{ User.IdUser }}">#{{ User.IdUser }}</a></th>
+                    <td>{{ User.UNom }}</td>
+                    <td>{{ User.UPrenom }}</td>
+                    <td>{{ User.Age }}</td>
+                    <td>{{ User.Sexe }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-success" href="/User/Show/{{ User.IdUser }}"><i class="far fa-eye"></i></a>
+                            <a class="btn btn-warning" href="/User/Update/{{ User.IdUser }}"><i class="fas fa-edit"></i></a>
+                            <a class="btn btn-danger" href="/User/Delete/{{ User.IdUser }}"><i class="far fa-trash-alt"></i></a>
+                        </div>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

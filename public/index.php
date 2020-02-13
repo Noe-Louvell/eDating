@@ -20,6 +20,12 @@ $router = new \src\Router\Router($_GET['url']);
 //====================================================================================================//
 
 //USER ROUTE //
+//Conection User//
+$router->get('/Login', 'User#loginFrom');
+$router->post('/Login', 'User#loginCheck');
+
+//Deconection User//
+$router->get('/Logout', 'User#logout');
 
 //Profile de tout les utilisateurs afficher sur une page//
 $router->get('/User/List', 'User#AllUser');
@@ -33,6 +39,10 @@ $router->get('/User/Delete/:ID_User','User#DeleteUser#:ID_User');
 //Création d'utilisateur//
 $router->get('/Register','User#registerFrom');
 $router->post('/Register','User#registerAdd');
+
+//Update Utilisateur//
+$router->get('/User/Update/:id', "User#updateUser#id");
+$router->post('/User/Update/:id', "User#updateUser#id");
 
 //====================================================================================================//
 //ANIMAL ROUTE//
