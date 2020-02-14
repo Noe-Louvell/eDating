@@ -57,8 +57,7 @@ class User implements \JsonSerializable{
         $user->setFumeur($datas['fumeur']);
         $user->setDescription($datas['description']);
         $user->setEmail($datas['email']);
-        $user->setPassword($datas['password']);
-        $user->setRole($datas['role']);
+
 
         return $user;
     }
@@ -136,7 +135,7 @@ class User implements \JsonSerializable{
     }
 
 
-    public function DeleteUser(\PDO $bdd,$ID_User){
+    public function SqlDeleteUser(\PDO $bdd,$ID_User){
         try{
             $requete = $bdd->prepare('DELETE FROM User where ID_User = :ID_User');
             $requete->execute([
@@ -148,39 +147,22 @@ class User implements \JsonSerializable{
         }
 
     }
-    public function UpdateUser(\PDO $bdd){
+    public function SqlUpdateUser(\PDO $bdd){
         try{
-            $requete = $bdd->prepare('UPDATE User set u_nom=:u_nom, u_prenom=:u_prenom, sexe=:sexe, ville=:ville, telephone=:telephone,age=:age,passion=:passion,prefhum=:prefhum,role=:role,parent=: parent,taille=:taille,corpulence=:corpulence,cheuveux=:cheuveux,nationalite=:nationalite,religion=:religion,fumeur=:fumeur,description=:description,email=:email,password=:password,role=:role 
+            $requete = $bdd->prepare('UPDATE User set u_nom=:u_nom, u_prenom=:u_prenom,ID_User=:ID_User
                                                 WHERE ID_User=:IDuser');
             $requete->execute([
-                'IDuser' => $this->getIdUser(),
+                'ID_User' => $this->getIdUser(),
                 'u_nom' => $this->getUNom(),
                 'u_prenom' => $this->getUPrenom(),
-                'sexe' => $this->getSexe(),
-                'ville' => $this->getVille(),
-                'telephone' => $this->getTelephone(),
-                'age' => $this->getAge(),
-                'passion' => $this->getPassion(),
-                'prefhum' => $this->getPrefhum(),
-                'statut' => $this->getStatut(),
-                'parent' => $this->getParent(),
-                'taille' => $this->getTaille(),
-                'corpulence' => $this->getCorpulence(),
-                'cheveux' => $this->getCheveux(),
-                'nationalite' => $this->getNationalite(),
-                'religion' => $this->getReligion(),
-                'fumeur' => $this->getFumeur(),
-                'description' => $this->getDescription(),
-                'email' => $this->getEmail(),
-                'password' => $this->getPassword(),
-                'role' => $this->getRole(),
             ]);
             return array("0", "[OK] Update");
         }catch (\Exception $e){
             return array("1", "[ERREUR] ".$e->getMessage());
+            header('Location:/User/List');
         }
     }
-    public function AddUser(\PDO $bdd) {
+    public function SqlAddUser(\PDO $bdd) {
         try{
             #$pass_hash = password_hash($password, PASSWORD_BCRYPT);
 

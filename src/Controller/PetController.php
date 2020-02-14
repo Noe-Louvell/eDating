@@ -31,15 +31,15 @@ class PetController extends  AbstractController
     }
     public function DeleteOnePet($ID_Pet){
         $PetSQL = new Pet();
-        $pet = $PetSQL->SqlGetOnePet(BDD::getInstance(),$ID_Pet);
-        $pet->DeletePet(BDD::getInstance(),$ID_Pet);
+        $pet = $PetSQL->SqlGetOnePet(BDD::getInstance(),$ID_Pet,$ID_User);
+        $pet->DeletePet(BDD::getInstance(),$ID_Pet,$ID_User);
 
         header('Location:/User');
     }
 
-    public function UpdatePet($ID_Pet){
+    public function UpdatePet($ID_Pet,$ID_User){
         $petSQL = new Pet();
-        $pet = $petSQL->SqlGetOnePet(BDD::getInstance(),$ID_Pet);
+        $pet = $petSQL->SqlGetOnePet(BDD::getInstance(),$ID_Pet,$ID_User);
 
         $pet->setIDPet($_POST['ID_Pet']);
         $pet->setIDRace($_POST['ID_Race']);
@@ -58,15 +58,16 @@ class PetController extends  AbstractController
         ]);
     }
 
-    public function ShowAllPet(){
-            // affiche plusieurs utilisateurs
-            $User = new Pet();
-            $listUser = $User->SqlGetAllPet(Bdd::GetInstance());
+    public function SqlGetAllPet($ID_User){
+            // affiche plusieurs Pet
+            $Pet = new Pet();
+            $listPet = $Pet->SqlGetAllPet(Bdd::GetInstance(),$ID_User);
+
 
             //Lancer la vue TWIG
             return $this->twig->render(
-                'User/ListPet.html.twig',[
-                    'UtilisateurList' => $listUser
+                'Pet/ListPet.html.twig',[
+                    'PetList' => $listPet
                 ]
             );
 

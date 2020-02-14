@@ -4,7 +4,7 @@
 namespace src\Model;
 
 
-class Pet implements JsonSerializable{
+class Pet implements \JsonSerializable{
 
     private $ID_Pet;
     private $ID_Race;
@@ -84,7 +84,7 @@ class Pet implements JsonSerializable{
             $pet->setAPrenom($petSQL['a_prenom']);
             $pet->setEntente($petSQL['entente']);
             $pet->setCaractere($petSQL['caractere']);
-            $listUser[] = $pet;
+            $listPet[] = $pet;
 
         }
         return $listPet;

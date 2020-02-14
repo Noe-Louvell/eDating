@@ -7,9 +7,16 @@
         <h2 class="display-3">Votre Profil</h2>
         <hr class="my-4">
         <div class="row">
-            <div class="card col-lg-4 ml" style="width: 15rem;">
 
+
+            <div class="card col-lg-4 ml" style="width: 15rem;">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="nav-link" href="/User/Update/{{ user.IdUser }}"><i class="fas fa-pen"></i></a>
+                    <a class="nav-link" href="/Pet/Listpet/{{ user.IdUser }}"><i class="fas fa-bone"></i></a>
+                </div>
                 <div class="card-body">
+
+
                     <h5 class="card-title">{{ user.unom }} {{ user.uprenom }}</h5>
                     <p class="card-text">{{ user.Age }}</p>
                     <p class="card-text">{{ user.Sexe }}</p>

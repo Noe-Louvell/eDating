@@ -40,21 +40,25 @@ class UserController extends  AbstractController
     public function DeleteUser($ID_User){
         $UserSQL = new User();
         $user = $UserSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
-        $user->DeleteUser(BDD::getInstance(),$ID_User);
+        $user->SqlDeleteUser(BDD::getInstance(),$ID_User);
 
         header('Location:/User');
     }
 
 
-        public function updateUser($ID_User){
+    public function updateUser($ID_User){
         $userSQL = new User();
         $user = $userSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
-        $user->setTitre($_POST['Titre'])
-        $user->setDescription($_POST['Description'])
+        if ($_POST) {
+            $sqlRepository = null;
+            $user->setIdUser($_POST['ID_User']);
+            $user->setUNom($_POST['u_nom']);
+            $user->setUPrenom($_POST['u_prenom']);
+            $user->setEmail($_POST['email']);
 
-
-
-        $user->UpdateUser(BDD::getInstance());
+            $user->SqlUpdateUser(BDD::getInstance());
+            header('Location:/User/List/');
+        }
 
 
         return $this->twig->render('User/update.html.twig',[
@@ -83,7 +87,7 @@ class UserController extends  AbstractController
         $user->setEmail($_POST['email']);
         $user->setPassword($_POST['password']);
 
-        $user->AddUser(BDD::getInstance());
+        $user->SqlAddUser(BDD::getInstance());
         header('Location:/');
     }
 

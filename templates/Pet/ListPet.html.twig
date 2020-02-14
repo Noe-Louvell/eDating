@@ -1,0 +1,49 @@
+{% extends "index.html.twig" %}
+{% block title %} Liste des Pet - {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="jumbotron">
+        <h1 class="display-4">Liste des Pet</h1>
+    </div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+
+
+                <th scope="col">Prenom</th>
+                <th scope="col">Age</th>
+                <th scope="col">Caractère</th>
+                <th scope="col">Entente</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <a class="btn btn-danger" href="/Pet/Add"><i class="fas fa-plus"></i><p>Creation d'pet</p></a>
+            <br>
+            <br>
+            {% for pet in PetList %}
+                <tr>
+                    <td>{{ pet.APrenom }}</td>
+                    <td>{{ pet.AAge }}</td>
+                    <td>{{ pet.Caractere }}</td>
+                    <td>{{ pet.Entente }}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a class="btn btn-success" href="/User/Show/{{ User.IdUser }}"><i class="far fa-eye"></i></a>
+
+                            <a class="btn btn-danger" href="/User/Like/{{ User.IdUser }}"><i class="far fa-heart"></i></a>
+                        </div>
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

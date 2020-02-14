@@ -10,7 +10,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th scope="col">#</th>
+
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
                 <th scope="col">Age</th>
@@ -24,7 +24,6 @@
             <br>
             {% for User in UserList %}
                 <tr>
-                    <th scope="row"><a href="/Article/Show/{{ User.IdUser }}">#{{ User.IdUser }}</a></th>
                     <td>{{ User.UNom }}</td>
                     <td>{{ User.UPrenom }}</td>
                     <td>{{ User.Age }}</td>
@@ -32,7 +31,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a class="btn btn-success" href="/User/Show/{{ User.IdUser }}"><i class="far fa-eye"></i></a>
-                            
+
                             <a class="btn btn-danger" href="/User/Like/{{ User.IdUser }}"><i class="far fa-heart"></i></a>
                         </div>
 

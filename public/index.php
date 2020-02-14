@@ -31,18 +31,18 @@ $router->get('/Logout', 'User#logout');
 $router->get('/User/List', 'User#AllUser');
 
 //Profile de 1 utilisateur//
-$router->get('/User/Show/:ID_User','User#OneUser#:ID_User');
+$router->get('/User/Show/:ID_User','User#Show#ID_User');
 
 //Suppression de 1 utilisateur//
-$router->get('/User/Delete/:ID_User','User#DeleteUser#:ID_User');
+$router->get('/User/Delete/:ID_User','User#DeleteUser#ID_User');
 
 //Création d'utilisateur//
 $router->get('/Register','User#registerFrom');
 $router->post('/Register','User#registerAdd');
 
 //Update Utilisateur//
-$router->get('/User/Update/:id', "User#updateUser#id");
-$router->post('/User/Update/:id', "User#updateUser#id");
+$router->get('/User/Update/:ID_User', "User#updateUser#:ID_User");
+$router->post('/User/Update/:ID_User', "User#updateUser#:ID_User");
 
 //====================================================================================================//
 //ANIMAL ROUTE//
@@ -53,6 +53,8 @@ $router->post('/Pet/Add','Pet#AddPet');
 
 //Delete de Pet//
 $router->get('Pet/Delete/:ID_Pet','Pet#DeleteOnePet#:ID_Pet');
+//List pet//
+$router->get('Pet/List/:ID_User','Pet#SqlGetAllPet#:ID_User');
 
 //====================================================================================================//
 
