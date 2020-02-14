@@ -15,6 +15,8 @@ class PetController extends  AbstractController
         $sqlRepository = null;
         $pet = new Pet();
 
+
+        $pet->getIDUser($_POST['ID_User']);
         $pet->setEntente($_POST['entente']);
         $pet->setCaractere($_POST['caractere']);
         $pet->setAPrenom($_POST['a_prenom']);

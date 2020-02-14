@@ -85,7 +85,7 @@ class UserController extends  AbstractController
         $user->setAge($_POST['age']);
         $user->setPrefhum($_POST['prefhum']);
         $user->setEmail($_POST['email']);
-        $user->setPassword($_POST['password']);
+        $user->setPassword(password_hash($_POST['password'], PASSWORD_BCRYPT));
 
         $user->SqlAddUser(BDD::getInstance());
         header('Location:/');
@@ -100,7 +100,7 @@ class UserController extends  AbstractController
     public function loginCheck()
     {
 
-        $userall = new User();
+        /*$userall = new User();
         $Allemail = $userall->SqlGetAllemailUser(Bdd::GetInstance());
         $email_ok = false;
 
@@ -114,7 +114,7 @@ class UserController extends  AbstractController
             $_SESSION['errorlogin'] = "Erreur dans l'email ou le mdp";
             header('Location:/Login');
             return;
-        }
+        }*/
 
 
 
@@ -122,8 +122,8 @@ class UserController extends  AbstractController
         $user = new User();
         $userInfoLog = $user->SqlGetUserLogin(Bdd::GetInstance(), ($_POST['email']));
 
-        if($_POST["email"]== $user['email']
-            AND $_POST["password"] == $user['password']){
+        var_dump(password_verify($_POST['password'], $user->getPassword()));
+        if(password_verify($_POST['password'], $user->getPassword())){
             $_SESSION['login'] = array(
                 "id" => $userInfoLog['ID_User'],
                 "Prenom" => $userInfoLog['u_prenom'],

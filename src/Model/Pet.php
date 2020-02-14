@@ -21,6 +21,7 @@ class Pet implements \JsonSerializable{
                                                 VALUES (:ID_User,:caractere,:a_prenom,:a_age,:entente) ');
             $requete->execute([
 
+                'ID_User' => $this->getIDUser(),
                 'caractere' => $this->getCaractere(),
                 'a_prenom' => $this->getAPrenom(),
                 'a_age' => $this->getAAge(),

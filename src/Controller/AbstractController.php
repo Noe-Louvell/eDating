@@ -16,6 +16,7 @@ class AbstractController {
             ]
         );
         $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+        $this->twig->addGlobal('session', $_SESSION);
 
         // Ajout d'une fonction PHP
         $fileExist = new \Twig\TwigFunction('file_exist', function($cheminFichier){

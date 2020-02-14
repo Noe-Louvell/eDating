@@ -128,7 +128,7 @@ class User implements \JsonSerializable{
         $user->setEmail($UserInfoLog['email']);
 
         $UserInfoLog[] = $user;
-        var_dump($user);
+
 
 
         return $UserInfoLog;
