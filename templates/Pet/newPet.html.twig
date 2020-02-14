@@ -6,28 +6,17 @@
         {% if session.errorlogin is defined %}
             <div class="alert alert-danger">{{ session.errorlogin }}</div>
         {% endif %}
-        <form method="post" action="/Register">
+        <form method="post" action="/Pet/Add">
 
             <p>Prénom :</p>
-            <input name="u_prenom" class="form-control form-control-lg">
-            <p>sexe :</p>
-            <input  name="sexe" class="form-control form-control-lg">
-            <p>Nom :</p>
-            <input name="u_nom" class="form-control form-control-lg">
-            <p>Mot de passe :</p>
-            <input type="password" name="password" class="form-control form-control-lg">
-            <p>Ville :</p>
-            <input  name="ville" class="form-control form-control-lg">
-            <p>telephone :</p>
-            <input  name="telephone" class="form-control form-control-lg">
-            <p>age :</p>
-            <input  name="age" class="form-control form-control-lg">
-            <p>Prefhum :</p>
-            <input  name="prefhum"  class="form-control form-control-lg">
-            <p>statut :</p>
-            <input  name="statut" class="form-control form-control-lg">
-            <p>Adresse e-mail :</p>
-            <input type="email" name="email" class="form-control form-control-lg">
+            <input name="a_prenom" class="form-control form-control-lg">
+            <p>Age :</p>
+            <input type="date" name="a_age" class="form-control form-control-lg">
+            <p>Caractère :</p>
+            <input name="caractere" class="form-control form-control-lg">
+            <p>Entente avec les autres :</p>
+            <input  name="entente" class="form-control form-control-lg">
+
 
             <br>
             <input type="submit">

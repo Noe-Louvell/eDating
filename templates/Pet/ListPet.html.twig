@@ -26,18 +26,14 @@
             {% for pet in PetList %}
                 <tr>
                     <td>{{ pet.APrenom }}</td>
-                    <td>{{ pet.AAge }}</td>
+                    <td>{{ pet.AAge | date("d/m/Y")}}</td>
                     <td>{{ pet.Caractere }}</td>
                     <td>{{ pet.Entente }}</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <a class="btn btn-success" href="/User/Show/{{ User.IdUser }}"><i class="far fa-eye"></i></a>
-
-                            <a class="btn btn-danger" href="/User/Like/{{ User.IdUser }}"><i class="far fa-heart"></i></a>
-                        </div>
 
 
-                    </td>
+
+
                 </tr>
             {% endfor %}
 

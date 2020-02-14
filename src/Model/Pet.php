@@ -17,11 +17,10 @@ class Pet implements \JsonSerializable{
 
     public function AddPet(\PDO $bdd) {
         try{
-            $requete = $bdd->prepare('INSERT INTO Pet(ID_Race,ID_User, caractere, a_prenom, a_age,entente) 
-                                                VALUES (:ID_Race,:ID_User,:caractere,:a_prenom,:a_age,:entente)');
+            $requete = $bdd->prepare('INSERT INTO Pet(ID_User, caractere, a_prenom, a_age,entente) 
+                                                VALUES (:ID_User,:caractere,:a_prenom,:a_age,:entente) ');
             $requete->execute([
-                'ID_Race' => $this->getIDRace(),
-                'ID_User' => $this->getIDUser(),
+
                 'caractere' => $this->getCaractere(),
                 'a_prenom' => $this->getAPrenom(),
                 'a_age' => $this->getAAge(),
@@ -32,6 +31,7 @@ class Pet implements \JsonSerializable{
         }catch (\Exception $e){
             return array("result"=>false,"message"=>$e->getMessage());
         }
+
 
     }
     public function DeletePet(\PDO $bdd,$ID_Pet){
