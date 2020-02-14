@@ -119,11 +119,10 @@ class UserController extends  AbstractController
 
         $userall = new User();
         $Allemail = $userall->SqlGetAllemailUser(Bdd::GetInstance());
-
         $email_ok = false;
 
-        foreach ($Allemail as $email) {
-            if (strtolower(trim($_POST['email'])) == strtolower(trim($email))) {
+        foreach ($Allemail as $emailuser) {
+            if (($_POST['email']) == ($emailuser)) {
                 $email_ok = true;
             }
         }
@@ -136,19 +135,18 @@ class UserController extends  AbstractController
 
 
         $user = new User();
-        $userInfoLog = $user->SqlGetLogin(Bdd::GetInstance(), ($_POST['email']));
-        $userInfoLog['password'];
+        $userInfoLog = $user->SqlGetUserLogin(Bdd::GetInstance(), ($_POST['email']));
 
-        if (strtolower(trim($_POST['password'])) ==  $userInfoLog['password']){
+        if (($_POST['password']) ==  $userInfoLog['password']){
             $_SESSION['login'] = array("id" => $userInfoLog['ID_User'],
                 "Prenom" => $userInfoLog['u_prenom'],
                 "Nom" => $userInfoLog['u_nom'],
                 "Email" => $userInfoLog['email']);
-            header('Location:/');
+            header('Location:/User/List');
 
 
         } else {
-            echo 'Fail';
+
             $_SESSION['errorlogin'] = "Email ou Mot de passe false ";
             header('Location:/Login');
 

@@ -114,10 +114,10 @@ class User implements \JsonSerializable{
         return $listUserEmail;
     }
 
-    public function SqlGetLogin(\PDO $bdd , $emailuser){
-        $query = $bdd->prepare('SELECT password,ID_User,email,u_prenom,u_nom FROM User WHERE email = :useremail');
+    public function SqlGetUserLogin(\PDO $bdd , $email){
+        $query = $bdd->prepare('SELECT password,ID_User,email,u_prenom,u_nom FROM User WHERE email = :email');
         $query->execute([
-            'useremail' => $emailuser
+            'email' => $email
         ]);
 
         $UserInfoLog = $query->fetch();
