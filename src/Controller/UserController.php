@@ -14,14 +14,12 @@ class UserController extends  AbstractController
         return $this->AllUser();
     }
 
-    public function OneUser($ID_User){
+    public function Show($ID_User){
         // affiche un article seul
+        $UserSQL = new User();
+        $user = $UserSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
 
-        $user = new User();
-        $user->SqlGetOneUser(Bdd::GetInstance(),$ID_User);
-        var_dump($user);
-        //Lancer la vue TWIG
-        return $this->twig->render('/User/view.html.twig',[
+        return $this->twig->render('User/view.html.twig',[
             'user' => $user
         ]);
     }
@@ -48,31 +46,12 @@ class UserController extends  AbstractController
     }
 
 
-    public function updateUser($ID_User){
+        public function updateUser($ID_User){
         $userSQL = new User();
         $user = $userSQL->SqlGetOneUser(BDD::getInstance(),$ID_User);
+        $user->setTitre($_POST['Titre'])
+        $user->setDescription($_POST['Description'])
 
-        $user->setIdUser($userSQL['ID_User']);
-        $user->setUNom($userSQL['u_nom']);
-        $user->setUPrenom($userSQL['u_prenom']);
-        $user->setSexe($userSQL['sexe']);
-        $user->setVille($userSQL['ville']);
-        $user->setTelephone($userSQL['telephone']);
-        $user->setAge($userSQL['age']);
-        $user->setPassion($userSQL['passion']);
-        $user->setPrefhum($userSQL['prefhum']);
-        $user->setStatut($userSQL['statut']);
-        $user->setParent($userSQL['parent']);
-        $user->setTaille($userSQL['taille']);
-        $user->setCorpulence($userSQL['corpulence']);
-        $user->setCheveux($userSQL['cheveux']);
-        $user->setNationalite($userSQL['nationalite']);
-        $user->setReligion($userSQL['religion']);
-        $user->setFumeur($userSQL['fumeur']);
-        $user->setDescription($userSQL['description']);
-        $user->setEmail($userSQL['email']);
-        $user->setPassword($userSQL['password']);
-        $user->setRole($userSQL['role']);
 
 
         $user->UpdateUser(BDD::getInstance());
@@ -134,18 +113,21 @@ class UserController extends  AbstractController
         }
 
 
+
+
         $user = new User();
         $userInfoLog = $user->SqlGetUserLogin(Bdd::GetInstance(), ($_POST['email']));
 
-        if (($_POST['password']) ==  $userInfoLog['password']){
-            $_SESSION['login'] = array("id" => $userInfoLog['ID_User'],
+        if($_POST["email"]== $user['email']
+            AND $_POST["password"] == $user['password']){
+            $_SESSION['login'] = array(
+                "id" => $userInfoLog['ID_User'],
                 "Prenom" => $userInfoLog['u_prenom'],
                 "Nom" => $userInfoLog['u_nom'],
                 "Email" => $userInfoLog['email']);
             header('Location:/User/List');
-
-
-        } else {
+            }
+        else {
 
             $_SESSION['errorlogin'] = "Email ou Mot de passe false ";
             header('Location:/Login');

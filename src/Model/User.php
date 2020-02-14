@@ -129,6 +129,8 @@ class User implements \JsonSerializable{
         $user->setEmail($UserInfoLog['email']);
 
         $UserInfoLog[] = $user;
+        var_dump($user);
+
 
         return $UserInfoLog;
     }
@@ -149,9 +151,9 @@ class User implements \JsonSerializable{
     public function UpdateUser(\PDO $bdd){
         try{
             $requete = $bdd->prepare('UPDATE User set u_nom=:u_nom, u_prenom=:u_prenom, sexe=:sexe, ville=:ville, telephone=:telephone,age=:age,passion=:passion,prefhum=:prefhum,role=:role,parent=: parent,taille=:taille,corpulence=:corpulence,cheuveux=:cheuveux,nationalite=:nationalite,religion=:religion,fumeur=:fumeur,description=:description,email=:email,password=:password,role=:role 
-                                                WHERE ID_User=:ID_User');
+                                                WHERE ID_User=:IDuser');
             $requete->execute([
-                'ID_User' => $this->getIdUser(),
+                'IDuser' => $this->getIdUser(),
                 'u_nom' => $this->getUNom(),
                 'u_prenom' => $this->getUPrenom(),
                 'sexe' => $this->getSexe(),

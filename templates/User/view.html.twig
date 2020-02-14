@@ -4,15 +4,15 @@
 
 {% block body %}
     <div class="container-fluid mt-2">
-        <h2 class="display-3">Votre Profile</h2>
+        <h2 class="display-3">Votre Profil</h2>
         <hr class="my-4">
         <div class="row">
             <div class="card col-lg-4 ml" style="width: 15rem;">
 
                 <div class="card-body">
-                    <h5 class="card-title">{{ User.UNom + User.UPrenom }}</h5>
-                    <p class="card-text">{{ User.Age }}</p>
-                    <p class="card-text">{{ User.Sexe }}</p>
+                    <h5 class="card-title">{{ user.unom }} {{ user.uprenom }}</h5>
+                    <p class="card-text">{{ user.Age }}</p>
+                    <p class="card-text">{{ user.Sexe }}</p>
                 </div>
             </div>
         </div>
